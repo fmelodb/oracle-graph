@@ -1,3 +1,6 @@
+-- You should run this script in a database that has Java Stored procedure enabled
+-- and also supports a client that supports 'set define off' (sqlplus or sqlcl).
+
 set define off
 
 drop function if exists matching;
@@ -226,14 +229,14 @@ insert into operator (name)              values ('operator1'), ('operator2'), ('
 insert into is_assigned (from_id, to_id) values (1, 1), (1, 2), (1, 3), (2, 2), (3, 3);
 commit;
 
--- bipartite query
+-- bipartite graph query
 select task, operator
 from graph_table(g
     match (t is task)-[e is is_assigned]->(o is operator)
     columns (t.id as task, o.id as operator)
 );
 
--- bipartite query using Hopcroft karp
+-- bipartite graph query using Hopcroft karp
 select * from table(matching(cursor(
     select task, operator
     from graph_table(g
