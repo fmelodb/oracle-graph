@@ -37,7 +37,7 @@ public class HopcroftKarp {
             uIndexMap.put(u, uCounter);
             revUMap.put(uCounter, u);
             uCounter++;
-        }
+        } 
 
         int vCounter = 1;
         for (int v : rightNodes) {
